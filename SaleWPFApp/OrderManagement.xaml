@@ -1,0 +1,124 @@
+﻿<Window x:Class="SaleWPFApp.OrderManagement"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SaleWPFApp"
+        mc:Ignorable="d"
+        Title="OrderManagement" Height="720" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="45*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Header-->
+        <StackPanel Background="#a5b4fc" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Label Content="Order Management" Foreground="#4f46e5" FontSize="20" FontWeight="Bold" 
+                   VerticalContentAlignment="Center" Margin="10 0 0 0"/>
+            <!--Buttons to show different objects and logout button-->
+            <StackPanel Grid.Column="2" VerticalAlignment="Center" Width="570">
+                <TextBlock HorizontalAlignment="Right">
+                    <Button x:Name="btnProducts" Content="Product" Foreground="#4f46e5" Background="#e0e7ff"  
+                           FontSize="15" FontWeight="SemiBold" Padding="10 5 10 5" Margin="0 0 10 0"
+                            Click="btnLoadProducts_Click"/> 
+                    <Button x:Name="btnMembers" Content="Member" Foreground="#4f46e5" Background="#e0e7ff"  
+                           FontSize="15" FontWeight="SemiBold" Padding="10 5 10 5" Margin="0 0 10 0"
+                            Click="btnLoadMembers_Click"/>
+                    <Button x:Name="btnLogout" Content="Logout" Foreground="#4f46e5" Background="#e0e7ff"  
+                            FontSize="15" FontWeight="SemiBold" Padding="10 5 10 5" Margin="0 0 10 0"
+                            Click="btnLogout_Click"/>
+                </TextBlock>
+            </StackPanel>
+        </StackPanel>
+
+        <!--Input fields-->
+        <StackPanel Grid.Row="1" Orientation="Vertical" Margin="10">
+            <Label Name="lbOrderId" Content="Order ID" FontSize="14" FontWeight="Bold"/>
+            <TextBlock>
+                <TextBox Name="txtOrderId"  Height="25" Margin="0 0 10 0" Width="290" 
+                         Text="{Binding Path=OrderId, Mode=OneWay}" 
+                         DataContext="{Binding ElementName=lvOrders,Path=SelectedItem}"/>
+            </TextBlock>
+
+            <Label Name="lbMemberId" Content="Order Name" FontSize="14" FontWeight="Bold"/>
+            <TextBlock>
+                <TextBox Name="txtMemberId"  Height="25" Margin="0 0 10 0" Width="290" 
+                         Text="{Binding Path=MemberId, Mode=OneWay}"
+                         DataContext="{Binding ElementName=lvOrders,Path=SelectedItem}"/>
+            </TextBlock>
+
+            <Label Name="lbOrderDate" Content="Order Date" FontSize="14" FontWeight="Bold"/>
+            <TextBlock>
+                <DatePicker Name="txtOrderDate"  Height="25" Margin="0 0 10 0" Width="290" 
+                         Text="{Binding Path=OrderDate, Mode=OneWay, StringFormat='dd/MM/yyyy'}"
+                         DataContext="{Binding ElementName=lvOrders,Path=SelectedItem}"/>
+            </TextBlock>
+
+            <Label Name="lbRequiredDate" Content="Required Date" FontSize="14" FontWeight="Bold"/>
+            <TextBlock>
+                <DatePicker Name="txtRequiredDate" Height="25" Margin="0 0 10 0" Width="290" 
+                         Text="{Binding Path=RequiredDate, Mode=OneWay, StringFormat='dd/MM/yyyy>'}"
+                         DataContext="{Binding ElementName=lvOrders,Path=SelectedItem}"/>
+            </TextBlock>
+
+            <Label Name="lbShippedDate" Content="Shipped Date" FontSize="14" FontWeight="Bold"/>
+            <TextBlock>
+                <DatePicker Name="txtShippedDate"  Height="25" Margin="0 0 10 0" Width="290" 
+                         Text="{Binding Path=ShippedDate, Mode=OneWay, StringFormat='dd/MM/yyyy'}" 
+                         DataContext="{Binding ElementName=lvOrders,Path=SelectedItem}"/>
+            </TextBlock>
+
+            <Label Name="lbFreight" Content="Freight" FontSize="14" FontWeight="Bold"/>
+            <TextBlock>
+                <TextBox Name="txtFreight"  Height="25" Margin="0 0 10 0" Width="290" 
+                         Text="{Binding Path=Freight, Mode=OneWay}" 
+                         DataContext="{Binding ElementName=lvOrders,Path=SelectedItem}"/>
+            </TextBlock>
+
+        </StackPanel>
+
+        <!--CRUD buttons-->
+        <StackPanel  Grid.Column="1" VerticalAlignment="Center" Grid.Row="1">
+            <Label Name="lbFunction" Content="Function"  FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+            <StackPanel Margin="0,0,0,50">
+                <Button x:Name="btnLoad" Margin="10" Width="80" Foreground="#4f46e5" Background="#e0e7ff"
+                        Content="Load" Click="btnLoad_Click" />
+                <Button x:Name="btnInsert" Margin="10" Width="80" Foreground="#4f46e5" Background="#e0e7ff" 
+                        Content="Insert" Click="btnInsert_Click" />
+                <Button x:Name="btnUpdate" Margin="10" Width="80" Foreground="#4f46e5" Background="#e0e7ff" 
+                        Content="Update" Click="btnUpdate_Click" />
+                <Button x:Name="btnDelete" Margin="10" Width="80" Foreground="#4f46e5" Background="#e0e7ff"
+                        Content="Delete"  Click="btnDelete_Click" />  
+                <Button x:Name="btnSearch" Margin="10" Width="100" Foreground="#4f46e5" Background="#e0e7ff"
+                        Content="Search by date"  Click="btnSearchByDate_Click" />
+                <TextBlock Margin="20 15 0 0">
+                    <Label Name="lbStartDate" Content="From"/>
+                        <DatePicker x:Name="txtStartDate" Width="150"/>
+                    <Label Name="lbEndDate" Content="To"/>
+                        <DatePicker x:Name="txtEndDate" Width="150"/>
+                </TextBlock>
+            </StackPanel>
+        </StackPanel>
+
+        <!--Order's data loaded from database-->
+        <ListView Grid.Row="3" Grid.ColumnSpan="2" Background="#e0e7ff" Name="lvOrders">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Order Id" Width="80" DisplayMemberBinding="{Binding Path=OrderId }"/>
+                    <GridViewColumn Header="Member Id" Width="80" DisplayMemberBinding="{Binding Path=MemberId}"/>
+                    <GridViewColumn Header="Order Date" Width="180" DisplayMemberBinding="{Binding Path=OrderDate }"/>
+                    <GridViewColumn Header="Required Date" Width="180" DisplayMemberBinding="{Binding Path=RequiredDate}"/>
+                    <GridViewColumn Header="Shipped Date" Width="180" DisplayMemberBinding="{Binding Path=ShippedDate}"/>
+                    <GridViewColumn Header="Weight" Width="80" DisplayMemberBinding="{Binding Path=Freight}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>
