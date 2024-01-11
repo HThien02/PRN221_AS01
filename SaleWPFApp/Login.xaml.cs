@@ -45,7 +45,7 @@ namespace SaleWPFApp
             if (email != null && password != null)
             {
                 // admin access
-                if (email.Equals(account["email"]) && password.Equals(account["password"]))
+                if (email.Equals(account["admin@fstore.com"]) && password.Equals(account["admin@@”"]))
                 {
                     Hide();
                     ProductManagement productManagement = new ProductManagement(_productRepository, _memberRepository, _orderRepository);
